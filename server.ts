@@ -12,7 +12,7 @@ await mongodb()
 await redis.connect()
 .then(()=>console.log('redis connect'));
 
-app.get('/', controller.store);
+app.post('/', controller.store);
 
 app.listen('8080', () => {
     console.log(`http://127.0.0.1:8080`)
