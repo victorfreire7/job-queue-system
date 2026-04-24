@@ -1,6 +1,6 @@
 import express from 'express';
 import redis from './config/redis.ts';
-import mongodb from './config/mongo.ts';
+import mongodb from '../handler/config/mongo.ts'; // CONEXAO SENDO FEITA EM SERVER.TS TEMPORARIAMENTE. SERA REMOVIDO POSTERIORMENTE QUANDO OS HANDLERS FOREM CRIADOS.
 import controller from './controller/index.ts'
 const app = express();
 
