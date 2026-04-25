@@ -1,4 +1,4 @@
-import redis from '../config/redis.ts';
+import redis from '../../config/redis.ts';
 import { faker } from '@faker-js/faker';
 // import User from '../model/User.ts';
 
