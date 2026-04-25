@@ -1,6 +1,10 @@
 import express from 'express';
+import redis from '../config/redis.ts';
 import controller from './controller/index.ts'
 const app = express();
+
+await redis.connect()
+.then(()=>console.log('redis connect'));
 
 app.post('/', controller.store);
 
