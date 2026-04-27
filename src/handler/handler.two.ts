@@ -6,8 +6,13 @@ import redis from '../config/redis.ts';
 import express from 'express';
 const app: express.Express = express();
 
-const handler_name: string = 'HANDLE_2' 
+const handler_name: string = 'HANDLE_2';
 const port: number = 8081;
+
+type User = {
+    email: string,
+    password: string
+}
 
 await redis.connect()
 .then(() => console.log('redis connect'));
@@ -15,28 +20,27 @@ await redis.connect()
 await mongodb()
 .then(() => console.log(`mongodb connect in port ${port}`));
 
-app.listen(port, async (): Promise<void> => { 
-    while (true) {   
-        let HANDLE_2: string[] | null = await redis.lRange(handler_name, 0, -1) // RETORNO = ARRAY
-        
-        if(HANDLE_2.length > 0){
+app.listen(port, () => { 
+    setInterval(async(): Promise<void> => {     
+        let HANDLE_1: string[] | null = await redis.lRange(handler_name, 0, -1) // RETORNO = ARRAY
+            
+        if(HANDLE_1.length > 0){
             const user: any = await redis.lmPop( // LRANGE HANDLE_2 0 -1
                 handler_name,
                 'RIGHT',
             ); // retorno: [ 'HANDLE_2', [ 'Katrina.Grady29@gmail.com G9KHj1MpR4aaEto' ] ]
-    
-            const user_split: string[] = user[1][0]?.split(' '); // retorno: ['email', 'password']
-            let user_email: any = user_split[0];
-            let user_password: any = user_split[1];
         
-            console.log(user_split)
-    
-            await mongo_schema.create({ // estou buscando o schema de dentro da API; talvez nao seja a melhor maneira de fazer isso.
-                email: user_email,
-                password: user_password
-            });
-        } else {
-            continue;
+            if(user && user[1]){
+                const user_json: User = await JSON.parse(user[1][0]);
+                
+                console.log(user_json)
+            
+                await mongo_schema.create({ // estou buscando o schema de dentro da API; talvez nao seja a melhor maneira de fazer isso.
+                    email: user_json.email,
+                    password: user_json.password
+                });
+            }
         }
-    }
+    }, 0);
+
 });
