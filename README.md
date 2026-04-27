@@ -15,7 +15,7 @@ A aplicação implementa um Load Balancer com gerenciamento de tarefas baseado e
 
 O principal objetivo é experimentar padrões que favorecem alta performance e baixa latência na execução de tarefas concorrentes.
 
-### Testes de Performance
+### Testes de Performance - Tempo de resposta para 1000 requisições no MongoDB
 
 | Qtd. Handler's | 1º Teste | 2º Teste | 3º Teste |
 |--------------|----------|----------|----------|
