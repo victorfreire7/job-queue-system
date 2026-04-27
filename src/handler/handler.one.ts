@@ -20,8 +20,8 @@ await redis.connect()
 await mongodb()
 .then(() => console.log(`mongodb connect in port ${port}`));
 
-app.listen(port, async (): Promise<void> => { 
-    while (true) {   
+app.listen(port, () => { 
+    setInterval( async (): Promise<void> => {
         let HANDLE_1: string[] | null = await redis.lRange(handler_name, 0, -1) // RETORNO = ARRAY
         
         if(HANDLE_1.length > 0){
@@ -30,16 +30,17 @@ app.listen(port, async (): Promise<void> => {
                 'RIGHT',
             ); // retorno: [ 'HANDLE_2', [ 'Katrina.Grady29@gmail.com G9KHj1MpR4aaEto' ] ]
     
-            const user_json: User = JSON.parse(user[1][0]);
+
+            if(user && user[1]){
+                const user_json: User = JSON.parse(user[1][0]);
+            
+                console.log(user_json)  // para visualizar os usuarios
         
-            console.log(user_json)
-    
-            await mongo_schema.create({ // estou buscando o schema de dentro da API; talvez nao seja a melhor maneira de fazer isso.
-                email: user_json.email,
-                password: user_json.password
-            });
-        } else {
-            continue;
+                await mongo_schema.create({ // estou buscando o schema de dentro da API; talvez nao seja a melhor maneira de fazer isso.
+                    email: user_json.email,
+                    password: user_json.password
+                });
+            }
         }
-    }
+    }, 0);  
 });
