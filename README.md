@@ -19,12 +19,13 @@ O principal objetivo é experimentar padrões que favorecem alta performance e b
 
 | Qtd. Handler's | 1º Teste | 2º Teste | 3º Teste |
 |--------------|----------|----------|----------|
-| Sem Load-Balancer | 10.5 s | 11.4 s | 11.2 s |
-| 2 Handler's | 6.82 s | 6.75 s | 7.1 s |
-| 3 Handler's | 6.9 s | 6.72 s | 6.70 s |
-| 4 Handler's | 6.62 s | 6.56 s | 6.56 s|
+| Sem Load-Balancer | 10.8 s | 11.4 s | 11.2 s |
+| 1 Handler | 6.42 s | 6.32 s | 6.36 s |
+| 2 Handler's | 6.32 s | 6.35 s | 6.4 s |
+| 3 Handler's | 6.37 s | 6.3 s | 6.70 s |
+| 4 Handler's | 6.24 s | 5.00 s | 6.19 s|
 
-- Redução de tempo = 42.5% mais rápido.
+- Redução de tempo = 47.8% mais rápido.
 
 ---
 ## Execution Flow
