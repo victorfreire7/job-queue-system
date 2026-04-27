@@ -1,7 +1,7 @@
 import redis from '../../config/redis.ts';
 import { faker } from '@faker-js/faker';
 let i = 0;
-const handler_numbs: number = 1;
+const handler_numbs: number = 2;
 
 type User = {
     email: string,
@@ -13,7 +13,7 @@ const random_num = (min : number, max : number) => {
 }
 
 const store = async (req: any, res: any) => {
-    while (i < 1) {        
+    while (i < 1000) {        
         try {
             const email = faker.internet.email();
             const password = faker.internet.password();
