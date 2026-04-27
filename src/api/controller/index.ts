@@ -1,19 +1,17 @@
 import redis from '../../config/redis.ts';
+const handler_numbs: number = 2;
+
+const rand_numb = (min: number, max: number): number => {
+    return Math.round(Math.random() * (max - min) + min);
+}
 
 const store = async (req: any, res: any) => {
     try {
         const info:string = `${req.body.email} ${req.body.password}`;
+        const rand: number = rand_numb(0.59, handler_numbs + 0.49)
 
-        const HANDLE_1 = await redis.lRange("HANDLE_1", 0, -1) // RETORNO = ARRAY
-        const HANDLE_2 = await redis.lRange("HANDLE_2", 0, -1) // RETORNO = ARRAY
-
-        let handle:string | any = 'HANDLE_1';
-        if(HANDLE_1.length > HANDLE_2.length){            
-            handle = 'HANDLE_2';
-        }
-
-        // LPUSH (HANDLE_1 || HANDLE_2) "EMAIL PASSWORD"
-
+        let handle:string = `HANDLE_${rand}`;
+        
         await redis.lPush(
             handle, 
             info 
