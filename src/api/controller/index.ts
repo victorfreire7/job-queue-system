@@ -1,7 +1,7 @@
 import redis from '../../config/redis.ts';
 import { faker } from '@faker-js/faker';
 let i = 0;
-const handler_numbs: number = 2;
+const handler_numbs: number = 4;
 
 type User = {
     email: string,
