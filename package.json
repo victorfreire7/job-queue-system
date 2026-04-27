@@ -3,7 +3,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node src/api/server.ts",
     "handler1": "node src/handler/handler.one.ts",
-    "handler2": "node src/handler/handler.two.ts"
+    "handler2": "node src/handler/handler.two.ts",
+    "handler3": "node src/handler/handler.three.ts",
+    "handler4": "node src/handler/handler.four.ts"
   },
   "type": "module",
   "devDependencies": {
