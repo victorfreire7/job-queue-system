@@ -1,4 +1,5 @@
-import redis from '../../config/redis.ts';
+import mongo_schema from '../model/User.ts';
+
 import { faker } from '@faker-js/faker';
 let i = 0
 
@@ -6,24 +7,17 @@ let i = 0
 const store = async (req: any, res: any) => {
     while (i < 1000) {        
         try {
-            const email = faker.internet.email();
-            const password = faker.internet.password();
-            const info:any = `${email} ${password}`;
-    
-            const HANDLE_1 = await redis.lRange("HANDLE_1", 0, -1) // RETORNO = ARRAY
-            const HANDLE_2 = await redis.lRange("HANDLE_2", 0, -1) // RETORNO = ARRAY
-    
-            let handle:string | any = 'HANDLE_1';
-            if(HANDLE_1.length > HANDLE_2.length){            
-                handle = 'HANDLE_2';
-            }
-    
-            // LPUSH (HANDLE_1 || HANDLE_2) "EMAIL PASSWORD"
-    
-            await redis.lPush(
-                handle, 
-                info 
-            );
+            const user_email = faker.internet.email();
+            const user_password = faker.internet.password();
+            const info:string = `${user_email} ${user_password}`;
+
+            await mongo_schema.create({ // estou buscando o schema de dentro da API; talvez nao seja a melhor maneira de fazer isso.
+                email: user_email,
+                password: user_password
+            });
+
+            console.log(info)
+
             i++; 
             continue  
         } catch (error) {
