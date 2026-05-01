@@ -2,11 +2,13 @@ import mongoose from "mongoose";
 import { config } from "dotenv";
 config();
 
-const connectionstring:any = process.env.MONGO_CONNECTIONSTRING;
+const connectionstring: string | undefined = process.env.MONGO_CONNECTIONSTRING;
 
 const db = async () => {
   try {
-    await mongoose.connect(connectionstring);
+    if(typeof connectionstring === 'string'){
+      await mongoose.connect(connectionstring);
+    }
   } catch (error) {
     console.error(`ERRO: ${error}`);
   }
