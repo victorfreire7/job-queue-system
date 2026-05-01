@@ -5,8 +5,8 @@ const app = express();
 
 app.use(express.json());
 
-await redis.connect()
-.then(()=>console.log('redis connect'));
+// await redis.connect()
+// .then(()=>console.log('redis connect'));
 
 app.post('/', controller.store);
 
